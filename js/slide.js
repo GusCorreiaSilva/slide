@@ -8,10 +8,10 @@ export default class Slide {
   }
 
   moveSlide(distX) {
-    this.slide.style.transform = `translate3d(${distX} px, 0, 0)`
+    this.slide.style.transform = `translate3d(${distX}px, 0, 0)`
   }
   updatePosition(clientX) {
-    this.dist.movement = this.startX - clientX
+    this.dist.movement = this.dist.startX - clientX
     return this.dist.movement;
     
   }

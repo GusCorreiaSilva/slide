@@ -1,6 +1,6 @@
 export default class Slide {
   constructor(slide, wrapper) {
-    this.slide = document.querySelector(slide);
+    this.slide = document.querySelector(slide);    
     this.wrapper = document.querySelector(wrapper);
     this.dist = {
       finalPosition: 0, startX: 0, movement: 0
@@ -56,9 +56,23 @@ export default class Slide {
     this.onEnd = this.onEnd.bind(this);
   }
 
+  //slide config
+
+  slidesConfig() {
+    this.slideArray = [...this.slide.children].map((element) => {
+      const position = element.offsetLeft
+      return {
+        position,
+        element
+      }
+    })
+    console.log(this.slideArray);
+  }
+  
   init() {
     this.bindEvents();
     this.addSlideEvents();
+    this. slidesConfig();
     return this;
   }
 }

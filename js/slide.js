@@ -2,9 +2,7 @@ export default class Slide {
   constructor(slide, wrapper) {
     this.slide = document.querySelector(slide);    
     this.wrapper = document.querySelector(wrapper);
-    this.dist = {
-      finalPosition: 0, startX: 0, movement: 0
-    }
+    this.dist = { finalPosition: 0, startX: 0, movement: 0 }
   }
 
   moveSlide(distX) {
@@ -12,8 +10,8 @@ export default class Slide {
     this.slide.style.transform = `translate3d(${distX}px, 0, 0)`
   }
   updatePosition(clientX) {
-    this.dist.movement = this.dist.startX - clientX
-    return (this.dist.finalPosition - this.dist.movement) * 1.6;
+    this.dist.movement = (this.dist.startX - clientX) * 1.6;
+    return this.dist.finalPosition - this.dist.movement;
     
   }
 
@@ -47,7 +45,6 @@ export default class Slide {
     this.wrapper.addEventListener("touchstart", this.onStart);
     this.wrapper.addEventListener("mouseup", this.onEnd);
     this.wrapper.addEventListener("touchend", this.onEnd);
-
   }
 
   bindEvents() {
@@ -60,23 +57,20 @@ export default class Slide {
   slidePosition(slide) {
     const margin = (this.wrapper.offsetWidth - slide.offsetWidth) / 2;
     return -(slide.offsetLeft - margin)
-    
   }
   slidesConfig() {
     this.slideArray = [...this.slide.children].map((element) => {
       const position = this.slidePosition(element);
-      return {
-        position,
-        element
-      }
+      return { position, element }
     })
     console.log(this.slideArray);
+    
   }
   
   init() {
     this.bindEvents();
     this.addSlideEvents();
-    this. slidesConfig();
+    this.slidesConfig();
     return this;
   }
 }

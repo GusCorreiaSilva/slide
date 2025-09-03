@@ -44,10 +44,12 @@ export default class Slide {
   }
 
   changeSlideOnEnd() {
-    if (this.dist.movement > 120) {
+    if (this.dist.movement > 120 && this.index.next !== undefined) {
       this.activeNextSlide()
-    } else if (this.dist.movement < -120) {
+    } else if (this.dist.movement < -120 && this.index.prev !== undefined) {
       this.activePrevSlide()
+    }else {
+      this.changeSlide(this.index.active)
     }
   }
   addSlideEvents() {

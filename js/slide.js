@@ -40,8 +40,16 @@ export default class Slide {
     const moveType = event.type === "mouseup" ? "mousemove" : "touchmove";
     this.wrapper.removeEventListener(moveType, this.onMove);
     this.dist.finalPosition = this.dist.movePosition;
+    this.changeSlideOnEnd()
   }
 
+  changeSlideOnEnd() {
+    if (this.dist.movement > 120) {
+      this.activeNextSlide()
+    } else if (this.dist.movement < -120) {
+      this.activePrevSlide()
+    }
+  }
   addSlideEvents() {
     this.wrapper.addEventListener("mousedown", this.onStart);
     this.wrapper.addEventListener("touchstart", this.onStart);

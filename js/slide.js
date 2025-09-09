@@ -112,6 +112,7 @@ export class Slide {
     this.addSlideEvents();
     this.slidesConfig();
     this.transition(true)
+    this.changeSlide(0)
     return this;
   }
 }

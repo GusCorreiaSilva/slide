@@ -69,7 +69,7 @@ export class Slide {
     this.onMove = this.onMove.bind(this);
     this.onEnd = this.onEnd.bind(this);
     this.activeNextSlide = this.activeNextSlide.bind(this);
-    this.activePrevtSlide = this.activePrevSlide.bind(this);
+    this.activePrevSlide = this.activePrevSlide.bind(this);
   }
 
   //slide config
@@ -118,8 +118,9 @@ export class Slide {
 }
 export class SlideNav extends Slide {
   addArrow(prev, next) {
-    this.prevElement = document.querySelector(prev)
-    this.nextElement = document.querySelector(next)
+    this.prevElement = document.querySelector(prev);
+    this.nextElement = document.querySelector(next);
+    this.addArrowEvent();
   }
   addArrowEvent() {
     this.prevElement.addEventListener('click', this.activePrevSlide)

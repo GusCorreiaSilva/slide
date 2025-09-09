@@ -131,9 +131,9 @@ export class SlideNav extends Slide {
     control.dataset.control = 'slide'
 
     this.slideArray.forEach((item, index) => {
-      control.innerHTML += `<li><a href="#slide${index}">${index}</a></li>`
+      control.innerHTML += `<li><a href="#slide${index + 1}">${index + 1}</a></li>`
     })
+    this.wrapper.appendChild(control)
     console.log(control);
-    
   }
-}
+} 

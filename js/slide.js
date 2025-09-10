@@ -6,7 +6,7 @@ export class Slide {
   }
 
   transition(active) {
-    this.slide.style.transition = active ? 'transform .3s ': ''
+    this.slide.style.transition = active ? "transform .3s " : "";
   }
   moveSlide(distX) {
     this.dist.movePosition = distX;
@@ -28,7 +28,7 @@ export class Slide {
       movetype = "touchmove";
     }
     this.wrapper.addEventListener(movetype, this.onMove);
-    this.transition(false)
+    this.transition(false);
   }
 
   onMove(event) {
@@ -44,17 +44,17 @@ export class Slide {
     const moveType = event.type === "mouseup" ? "mousemove" : "touchmove";
     this.wrapper.removeEventListener(moveType, this.onMove);
     this.dist.finalPosition = this.dist.movePosition;
-    this.transition(true)
-    this.changeSlideOnEnd()
+    this.transition(true);
+    this.changeSlideOnEnd();
   }
 
   changeSlideOnEnd() {
     if (this.dist.movement > 120 && this.index.next !== undefined) {
-      this.activeNextSlide()
+      this.activeNextSlide();
     } else if (this.dist.movement < -120 && this.index.prev !== undefined) {
-      this.activePrevSlide()
-    }else {
-      this.changeSlide(this.index.active)
+      this.activePrevSlide();
+    } else {
+      this.changeSlide(this.index.active);
     }
   }
   addSlideEvents() {
@@ -101,29 +101,64 @@ export class Slide {
   }
 
   activePrevSlide() {
-    if (this.index.prev !== undefined) this.changeSlide(this.index.prev)
+    if (this.index.prev !== undefined) this.changeSlide(this.index.prev);
   }
   activeNextSlide() {
-    if (this.index.next !== undefined) this.changeSlide(this.index.next)
+    if (this.index.next !== undefined) this.changeSlide(this.index.next);
   }
 
   init() {
     this.bindEvents();
     this.addSlideEvents();
     this.slidesConfig();
-    this.transition(true)
-    this.changeSlide(0)
+    this.transition(true);
+    this.changeSlide(0);
     return this;
   }
 }
 export class SlideNav extends Slide {
+  constructor(slide,wrapper) {
+    super(slide,wrapper)
+    this.bindControlEvents()
+  }
   addArrow(prev, next) {
     this.prevElement = document.querySelector(prev);
     this.nextElement = document.querySelector(next);
     this.addArrowEvent();
   }
   addArrowEvent() {
-    this.prevElement.addEventListener('click', this.activePrevSlide)
-    this.nextElement.addEventListener('click', this.activeNextSlide)
+    this.prevElement.addEventListener("click", this.activePrevSlide);
+    this.nextElement.addEventListener("click", this.activeNextSlide);
   }
+  createControl() {
+    const control = document.createElement("ul");
+    control.dataset.control = "slide";
+    this.slideArray.forEach((item, index) => {
+      control.innerHTML += `<li><a href="#slide${index + 1}">${
+        index + 1
+      }</a></li>`;
+    });
+    this.wrapper.appendChild(control);
+    return control
+  }
+
+  eventControl(item, index) {
+    item.addEventListener("click", (event) => {
+      event.preventDefault();
+      this.changeSlide(index);
+    });
+  }
+  addControl(customControl) {
+    this.control =
+      document.querySelector(customControl) || this.createControl();
+    this.controlArray = [... this.control.children];
+    console.log(this.control);
+    console.log(this.controlArray);
+    this.controlArray.forEach(this.eventControl);
+  }
+
+  bindControlEvents() {
+    this.eventControl = this.eventControl.bind(this);
+  }
+  
 }

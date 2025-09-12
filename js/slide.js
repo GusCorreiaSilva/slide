@@ -149,12 +149,15 @@ export class SlideNav extends Slide {
   }
 
   activeControlItem() {
-    this.controlArray(this.index.active).classList.add(this.activeClass)
+    this.controlArray.forEach(item => item.classList.remove(this.activeClass));
+    this.controlArray[this.index.active].classList.add(this.activeClass)
   }
   addControl(customControl) {
     this.control =
       document.querySelector(customControl) || this.createControl();
     this.controlArray = [...this.control.children]; 
+
+    
     this.controlArray.forEach(this.eventControl);
   }
 

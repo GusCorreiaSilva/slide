@@ -18,7 +18,7 @@ export class Slide {
     this.dist.movement = (this.dist.startX - clientX) * 1.6;
     return this.dist.finalPosition - this.dist.movement;
   }
- 
+
   onStart(event) {
     let movetype;
     if (event.type === "mousedown") {
@@ -119,7 +119,7 @@ export class Slide {
     return this;
   }
 }
-export class SlideNav extends Slide {
+export default class SlideNav extends Slide {
   constructor(slide, wrapper) {
     super(slide, wrapper);
     this.bindControlEvents();

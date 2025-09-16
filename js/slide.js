@@ -120,6 +120,7 @@ export class SlideNav extends Slide {
   constructor(slide,wrapper) {
     super(slide,wrapper)
     this.bindControlEvents()
+    this.activeClass = 'active'
   }
   addArrow(prev, next) {
     this.prevElement = document.querySelector(prev);
@@ -157,7 +158,6 @@ export class SlideNav extends Slide {
       document.querySelector(customControl) || this.createControl();
     this.controlArray = [...this.control.children]; 
 
-    
     this.controlArray.forEach(this.eventControl);
   }
 
